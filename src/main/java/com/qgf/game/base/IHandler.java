@@ -13,9 +13,13 @@ import com.qgf.game.base.util.AvroUtil;
  * @date Mar 13, 2015
  */
 public abstract class IHandler {
-//	final private <T> void onMessage(T msg) {
-//		
-//	}
+	/**
+	 * dispatch message here
+	 * @param ctx netty handler context
+	 * @param msg the message to dispatch
+	 * */
+	public abstract <T> void onMessage(ChannelHandlerContext ctx, T msg);
+	
 	public <M> void sendMessage (ChannelHandlerContext ctx, M m) {
 		ByteBuffer buffer = AvroUtil.encode2Byte(m);
 		Message msg = new Message(m.getClass().getName(), buffer);

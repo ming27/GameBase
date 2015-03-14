@@ -1,7 +1,5 @@
 package com.qgf.game.base;
 
-import org.apache.avro.specific.SpecificRecordBase;
-
 import com.qgf.game.base.protocol.Message;
 import com.qgf.game.base.util.AvroUtil;
 import com.qgf.game.base.util.ReflectUtil;
@@ -15,6 +13,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @date 2015年3月9日
  */
 public class GameHandler extends ChannelInboundHandlerAdapter {
+	
+	private final static Class<?>[] Invoke_Param_Types = {ChannelHandlerContext.class, Object.class};
 
 	@Override
 	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
@@ -43,7 +43,7 @@ public class GameHandler extends ChannelInboundHandlerAdapter {
 			Message msgObj = (Message) msg;
 			Object obj = AvroUtil.decodeFrom(msgObj.getData(), msgObj.getName().toString());
 			IHandler handler = server.getHandler(obj.getClass());
-			ReflectUtil.invokeMethod(handler, "onMessage", ctx, obj);
+			ReflectUtil.invokeMethod(handler, "onMessage", Invoke_Param_Types, ctx, obj);
 		}
 	}
 

@@ -1,11 +1,7 @@
 package com.qgf.game.base.util;
 
-import io.netty.channel.ChannelHandlerContext;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.apache.avro.specific.SpecificRecordBase;
 
 /**
  *
@@ -14,22 +10,10 @@ import org.apache.avro.specific.SpecificRecordBase;
  */
 public class ReflectUtil {
 
-	public static void invokeMethod(Object obj, String name, Object... params)
+	public static void invokeMethod(Object obj, String name, Class<?>[] paramTypes, Object... params)
 			throws NoSuchMethodException, SecurityException,
 			IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException {
-		int pcount = 0;
-		if (params != null) {
-			pcount = params.length;
-		}
-		Class<?> paramTypes[] = new Class<?>[pcount];
-		// TODO ... 临时方案, 待重构
-		paramTypes[0] = ChannelHandlerContext.class;
-		try {
-			paramTypes[1] = Class.forName(((SpecificRecordBase)params[1]).getSchema().getFullName());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
 		Method m = obj.getClass().getDeclaredMethod(name, paramTypes);
 		m.invoke(obj, params);
 	}

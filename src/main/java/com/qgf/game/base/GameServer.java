@@ -36,7 +36,7 @@ public class GameServer {
 		return instance;
 	}
 
-	private Map<Class<?>, IHandler> mHandlers = new HashMap<Class<?>, IHandler>();
+	private IHandler mHandler = null;
 
 	public void start(int port) throws InterruptedException {
 		start(0, port);
@@ -64,20 +64,11 @@ public class GameServer {
 	}
 
 	public void registHandler(IHandler handler) {
-		// 遍历handler里面所有的 onMessage 方法, 放在map里面
-		Method []methods = handler.getClass().getDeclaredMethods();
-		if (methods != null) {
-			for (Method m:methods) {
-				String mtdName = m.getName();
-				if ("onMessage".equals(mtdName) && m.getParameterCount() == 2) {
-					mHandlers.put(m.getParameterTypes()[1], handler);
-				}
-			}
-		}
+		mHandler = handler;
 	}
 	
 	public <T> IHandler getHandler(Class<T> t) {
-		return mHandlers.get(t);
+		return mHandler;
 	}
 
 	public static void main(String[] args) throws InterruptedException {
