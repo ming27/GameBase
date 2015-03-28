@@ -1,7 +1,0 @@
-@namespace("com.qgf.game.base.protocol")
-protocol Message {
-    record Message {
-        string name; // 请求名称
-        bytes data;  // 请求数据
-    }
-}
