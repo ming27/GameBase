@@ -1,9 +1,5 @@
 package com.qgf.game.base;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
@@ -39,11 +35,11 @@ public class GameServer {
 	private IHandler mHandler = null;
 
 	public void start(int port) throws InterruptedException {
-		start(0, port);
+		start(1, port);
 	}
 
 	public void start(int logicnum, int port) throws InterruptedException {
-		start(1, 1, logicnum, port, 128);
+		start(1, Runtime.getRuntime().availableProcessors() * 2, logicnum, port, 128);
 	}
 
 	public void start(int bossnum, int workernum, int logicnum, int port, int backlog) throws InterruptedException {
