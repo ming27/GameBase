@@ -1,7 +1,0 @@
-@namespace("com.qgf.game.example")
-protocol Example {
-    record Example {
-        string name; 
-        int value;
-    }
-}

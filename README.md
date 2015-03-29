@@ -2,4 +2,5 @@
 game framework based on netty
 
 ## TODO
-* å°è£…client
+* ·â×°client
+* add session support
