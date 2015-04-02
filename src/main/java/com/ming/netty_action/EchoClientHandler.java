@@ -19,6 +19,7 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
 	//从服务器接收到数据后调用
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
+		ctx.write(Unpooled.copiedBuffer("Netty rocks read!",CharsetUtil.UTF_8));
 		System.out.println("Client received: " + 
 				ByteBufUtil.hexDump(msg.readBytes(msg.readableBytes())));
 	}
